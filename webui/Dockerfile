@@ -5,7 +5,7 @@ WORKDIR /usr/app
 RUN npm install express
 RUN npm install redis
 
-COPY files/ /files/
-COPY webui.js /
-CMD ["node", "webui.js"]
+COPY files/ /usr/app/files/
+COPY webui.js /usr/app/
+CMD ["node", "/usr/app/webui.js"]
 EXPOSE 80
