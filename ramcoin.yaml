@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: webui
-        image: ${REGISTRY-127.0.0.1:5000}/webui:${TAG-latest}
+        image: 127.0.0.1:5000/webui:latest
         ports:
           - name: http-port
             containerPort: 80
@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
       - name: rng
-        image: ${REGISTRY-127.0.0.1:5000}/rng:${TAG-latest}
+        image: 127.0.0.1:5000/rng:latest
         ports:
           - name: http-port
             containerPort: 80
@@ -60,7 +60,7 @@ spec:
     spec:
       containers:
       - name: webui
-        image: ${REGISTRY-127.0.0.1:5000}/hasher:${TAG-latest}
+        image: 127.0.0.1:5000/hasher:latest
         ports:
           - name: http-port
             containerPort: 80
@@ -83,7 +83,7 @@ spec:
     spec:
       containers:
       - name: webui
-        image: ${REGISTRY-127.0.0.1:5000}/worker:${TAG-latest}
+        image: 127.0.0.1:5000/worker:latest
         ports:
           - name: http-port
             containerPort: 80
