@@ -2,17 +2,17 @@ version: "3"
 
 services:
   rng:
-    build: dockercoins/rng
+    build: rng
     image: ${REGISTRY-127.0.0.1:5000}/rng:${TAG-latest}
     deploy:
       mode: global
 
   hasher:
-    build: dockercoins/hasher
+    build: hasher
     image: ${REGISTRY-127.0.0.1:5000}/hasher:${TAG-latest}
 
   webui:
-    build: dockercoins/webui
+    build: webui
     image: ${REGISTRY-127.0.0.1:5000}/webui:${TAG-latest}
     ports:
     - "8000:80"
@@ -21,7 +21,7 @@ services:
     image: redis
 
   worker:
-    build: dockercoins/worker
+    build: worker
     image: ${REGISTRY-127.0.0.1:5000}/worker:${TAG-latest}
     deploy:
       replicas: 10
