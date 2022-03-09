@@ -1,30 +1,27 @@
-version: "2"
+version: "3"
 
 services:
   rng:
-    build: rng
-    image: ${REGISTRY_SLASH}rng${COLON_TAG}
-    ports:
-    - "8001:80"
+    build: dockercoins/rng
+    image: ${REGISTRY-127.0.0.1:5000}/rng:${TAG-latest}
+    deploy:
+      mode: global
 
   hasher:
-    build: hasher
-    image: ${REGISTRY_SLASH}hasher${COLON_TAG}
-    ports:
-    - "8002:80"
+    build: dockercoins/hasher
+    image: ${REGISTRY-127.0.0.1:5000}/hasher:${TAG-latest}
 
   webui:
-    build: webui
-    image: ${REGISTRY_SLASH}webui${COLON_TAG}
+    build: dockercoins/webui
+    image: ${REGISTRY-127.0.0.1:5000}/webui:${TAG-latest}
     ports:
     - "8000:80"
-    volumes:
-    - "./webui/files/:/files/"
 
   redis:
     image: redis
 
   worker:
-    build: worker
-    image: ${REGISTRY_SLASH}worker${COLON_TAG}
-
+    build: dockercoins/worker
+    image: ${REGISTRY-127.0.0.1:5000}/worker:${TAG-latest}
+    deploy:
+      replicas: 10
