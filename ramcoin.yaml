@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: webui
-        image: 127.0.0.1:5000/webui:v0.1
+        image: 127.0.0.1:32566/webui:v0.1
         ports:
           - name: http-port
             containerPort: 80
@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
       - name: rng
-        image: 127.0.0.1:5000/rng:v0.1
+        image: 127.0.0.1:32566/rng:v0.1
         ports:
           - name: http-port
             containerPort: 80
@@ -60,7 +60,7 @@ spec:
     spec:
       containers:
       - name: webui
-        image: 127.0.0.1:5000/hasher:v0.1
+        image: 127.0.0.1:32566/hasher:v0.1
         ports:
           - name: http-port
             containerPort: 80
@@ -83,7 +83,7 @@ spec:
     spec:
       containers:
       - name: webui
-        image: 127.0.0.1:5000/worker:v0.1
+        image: 127.0.0.1:32566/worker:v0.1
         ports:
           - name: http-port
             containerPort: 80
