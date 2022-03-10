@@ -59,7 +59,7 @@ spec:
         app: hasher
     spec:
       containers:
-      - name: webui
+      - name: hasher
         image: 127.0.0.1:30000/hasher:v0.1
         ports:
           - name: http-port
@@ -82,7 +82,7 @@ spec:
         app: worker
     spec:
       containers:
-      - name: webui
+      - name: worker
         image: 127.0.0.1:30000/worker:v0.1
         ports:
           - name: http-port
