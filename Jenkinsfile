@@ -15,8 +15,8 @@ pipeline {
             }
             steps{
                 container('docker') {
-                    sh 'cd webui'
-                    sh 'docker build -t $DOCKER_REGISTRY/webui:$BUILD_NUMBER .'
+                    sh 'cd webui; ls -l'
+                    sh 'cd webui; docker build -t $DOCKER_REGISTRY/webui:$BUILD_NUMBER .'
                     sh 'docker push $DOCKER_REGISTRY/webui:$BUILD_NUMBER'
                 }
             }
