@@ -1,11 +1,5 @@
 pipeline {
     agent none 
-    environment {
-        registry = "linhbngo/go_server"
-        docker_user = "linhbngo"
-        docker_app = "go_server"
-        GOCACHE = "/tmp"
-    }
     stages {
         stage('Publish') {
             agent {
@@ -17,8 +11,8 @@ pipeline {
                 container('docker') {
                     sh 'echo $DOCKER_TOKEN | docker login --username $DOCKER_USER --password-stdin'
                     sh 'cd webui
-                    sh 'docker build -t $DOCKER_REGISTRY:$BUILD_NUMBER .'
-                    sh 'docker push $DOCKER_REGISTRY:$BUILD_NUMBER'
+                    sh 'docker build -t $DOCKER_REGISTRY/webui:$BUILD_NUMBER .'
+                    sh 'docker push $DOCKER_REGISTRY/webui:$BUILD_NUMBER'
                 }
             }
         }
