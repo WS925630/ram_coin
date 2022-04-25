@@ -16,7 +16,7 @@ pipeline {
             steps{
                 container('docker') {
                     sh 'echo $DOCKER_TOKEN | docker login --username $DOCKER_USER --password-stdin'
-                    sh 'cd webui
+                    sh 'cd webui'
                     sh 'docker build -t $DOCKER_REGISTRY/webui:$BUILD_NUMBER .'
                     sh 'docker push $DOCKER_REGISTRY/webui:$BUILD_NUMBER'
                 }
