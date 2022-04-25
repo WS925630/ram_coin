@@ -1,5 +1,11 @@
 pipeline {
     agent none 
+    environment {
+        registry = "linhbngo/go_server"
+        docker_registry = "130.127.132.246:5000"
+        docker_app = "go_server"
+        GOCACHE = "/tmp"
+    }
     stages {
         stage('Publish') {
             agent {
@@ -24,12 +30,11 @@ pipeline {
             }
             steps {
                 sshagent(credentials: ['cloudlab']) {
-                    sh "sed -i 's/DOCKER_USER/${docker_user}/g' webui.yaml"
-                    sh "sed -i 's/DOCKER_APP/${docker_app}/g' webui.yaml"
-                    sh "sed -i 's/BUILD_NUMBER/${BUILD_NUMBER}/g' deployment.yaml"
-                    sh 'scp -r -v -o StrictHostKeyChecking=no *.yml lngo@155.98.37.91:~/'
-                    sh 'ssh -o StrictHostKeyChecking=no lngo@155.98.37.91 kubectl apply -f /users/lngo/webui.yaml -n jenkins'
-                    sh 'ssh -o StrictHostKeyChecking=no lngo@155.98.37.91 kubectl apply -f /users/lngo/webui-service.yaml -n jenkins'                                        
+                    sh "sed -i 's/DOCKER_REGISTRY/${docker_registry}/g' webui.yaml"
+                    sh "sed -i 's/BUILD_NUMBER/${BUILD_NUMBER}/g' webui.yaml"
+                    sh 'scp -r -v -o StrictHostKeyChecking=no *.yml lngo@130.127.132.246:~/'
+                    sh 'ssh -o StrictHostKeyChecking=no lngo@130.127.132.246 kubectl apply -f /users/lngo/webui.yaml -n jenkins'
+                    sh 'ssh -o StrictHostKeyChecking=no lngo@130.127.132.246 kubectl apply -f /users/lngo/webui-service.yaml -n jenkins'                                        
                 }
             }
         }
