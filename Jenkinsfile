@@ -1,10 +1,7 @@
 pipeline {
     agent none 
     environment {
-        registry = "linhbngo/go_server"
         docker_registry = "130.127.132.246:5000"
-        docker_app = "go_server"
-        GOCACHE = "/tmp"
     }
     stages {
         stage('Publish') {
