@@ -13,7 +13,7 @@ pipeline {
             steps{
                 container('docker') {
                     sh 'cd webui; ls -l'
-                    sh 'ls /etc/docker/; cat /etc/docker/daemon.json'
+                    sh 'ls /etc/docker/; cat /etc/docker/daemon.json; apk add --no-cache openrc; service docker restart'
                     sh 'cd webui; docker build -t $DOCKER_REGISTRY/webui:$BUILD_NUMBER .'
                     sh 'docker push $DOCKER_REGISTRY/webui:$BUILD_NUMBER'
                 }
