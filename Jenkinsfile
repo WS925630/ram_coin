@@ -1,7 +1,7 @@
 pipeline {
     agent none 
     environment {
-        docker_registry = "130.127.132.246:5000"
+        docker_user = "linhbngo"
     }
     stages {
         stage('Publish') {
@@ -12,10 +12,9 @@ pipeline {
             }
             steps{
                 container('docker') {
-                    sh 'cd webui; ls -l'
-                    sh 'ls /etc/docker/; cat /etc/docker/daemon.json; apk add --no-cache openrc; service docker restart'
-                    sh 'cd webui; docker build -t $DOCKER_REGISTRY/webui:$BUILD_NUMBER .'
-                    sh 'docker push $DOCKER_REGISTRY/webui:$BUILD_NUMBER'
+                    sh 'echo $DOCKER_TOKEN | docker login --username $DOCKER_USER --password-stdin'
+                    sh 'cd webui; docker build -t $DOCKER_USER/webui:$BUILD_NUMBER .'
+                    sh 'docker push $DOCKER_USER/webui:$BUILD_NUMBER'
                 }
             }
         }
@@ -27,9 +26,9 @@ pipeline {
             }
             steps {
                 sshagent(credentials: ['cloudlab']) {
-                    sh "sed -i 's/DOCKER_REGISTRY/${docker_registry}/g' webui.yaml"
+                    sh "sed -i 's/DOCKER_REGISTRY/${docker_user}/g' webui.yaml"
                     sh "sed -i 's/BUILD_NUMBER/${BUILD_NUMBER}/g' webui.yaml"
-                    sh 'scp -r -v -o StrictHostKeyChecking=no *.yml lngo@130.127.132.246:~/'
+                    sh 'scp -r -v -o StrictHostKeyChecking=no *.yaml lngo@130.127.132.246:~/'
                     sh 'ssh -o StrictHostKeyChecking=no lngo@130.127.132.246 kubectl apply -f /users/lngo/webui.yaml -n jenkins'
                     sh 'ssh -o StrictHostKeyChecking=no lngo@130.127.132.246 kubectl apply -f /users/lngo/webui-service.yaml -n jenkins'                                        
                 }
