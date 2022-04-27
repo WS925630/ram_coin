@@ -29,7 +29,6 @@ pipeline {
                     sh "sed -i 's/DOCKER_REGISTRY/${docker_user}/g' webui.yaml"
                     sh "sed -i 's/BUILD_NUMBER/${BUILD_NUMBER}/g' webui.yaml"
                     sh 'scp -r -v -o StrictHostKeyChecking=no *.yaml lngo@130.127.132.246:~/'
-                    sh 'ssh -o StrictHostKeyChecking=no lngo@130.127.132.246 kubectl delete deployment webui -n jenkins'
                     sh 'ssh -o StrictHostKeyChecking=no lngo@130.127.132.246 kubectl apply -f /users/lngo/webui.yaml -n jenkins'
                     sh 'ssh -o StrictHostKeyChecking=no lngo@130.127.132.246 kubectl apply -f /users/lngo/webui-service.yaml -n jenkins'                                        
                 }
