@@ -14,7 +14,7 @@ services:
   webui:
     build: webui
     ports:
-    - "CHANGE_THIS_VALUE:80"
+    - "8006"
     volumes:
     - "./webui/files/:/files/"
 
